@@ -1,4 +1,0 @@
-name,auc,roc_csv
-BLUE,1.0,results_roc\roc_BLUE.csv
-RED,1.0,results_roc\roc_RED.csv
-GREEN,1.0,results_roc\roc_GREEN.csv
