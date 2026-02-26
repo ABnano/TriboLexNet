@@ -1,0 +1,11 @@
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+redenv/
+.venv/
+venv/
+
+# IDE workspace
+*.code-workspace
