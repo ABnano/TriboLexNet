@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">TriboLexNet Acoustic Banner</title>
+  <desc id="desc">Stylized waveform and spectrogram-inspired banner for the TriboLexNet RED keyword detection repository.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07121d"/>
+      <stop offset="45%" stop-color="#0b2534"/>
+      <stop offset="100%" stop-color="#102f24"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7cf6ff" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#8dffba" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffd56b" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="420" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="420" fill="url(#glow)"/>
+
+  <!-- Spectrogram-like grid -->
+  <g opacity="0.18" stroke="#cfefff" stroke-width="1">
+    <path d="M0 70H1200M0 120H1200M0 170H1200M0 220H1200M0 270H1200M0 320H1200M0 370H1200"/>
+    <path d="M80 0V420M160 0V420M240 0V420M320 0V420M400 0V420M480 0V420M560 0V420M640 0V420M720 0V420M800 0V420M880 0V420M960 0V420M1040 0V420M1120 0V420"/>
+  </g>
+
+  <!-- Frequency bands / acoustic energy blocks -->
+  <g opacity="0.55">
+    <rect x="70" y="240" width="38" height="90" rx="4" fill="#38bdf8"/>
+    <rect x="120" y="205" width="38" height="125" rx="4" fill="#22d3ee"/>
+    <rect x="170" y="170" width="38" height="160" rx="4" fill="#34d399"/>
+    <rect x="220" y="140" width="38" height="190" rx="4" fill="#86efac"/>
+    <rect x="270" y="180" width="38" height="150" rx="4" fill="#4ade80"/>
+
+    <rect x="820" y="175" width="30" height="160" rx="4" fill="#60a5fa"/>
+    <rect x="860" y="145" width="30" height="190" rx="4" fill="#22d3ee"/>
+    <rect x="900" y="120" width="30" height="215" rx="4" fill="#2dd4bf"/>
+    <rect x="940" y="160" width="30" height="175" rx="4" fill="#34d399"/>
+    <rect x="980" y="195" width="30" height="140" rx="4" fill="#93c5fd"/>
+  </g>
+
+  <!-- Waveform -->
+  <path
+    d="M20 210
+       C55 210, 65 208, 90 208
+       C115 208, 125 185, 140 185
+       C155 185, 170 250, 188 250
+       C206 250, 214 140, 228 140
+       C242 140, 252 285, 272 285
+       C292 285, 300 210, 320 210
+       C340 210, 352 120, 370 120
+       C388 120, 402 300, 420 300
+       C438 300, 452 210, 470 210
+       C488 210, 502 165, 520 165
+       C538 165, 552 258, 570 258
+       C588 258, 600 210, 620 210
+       C640 210, 654 172, 670 172
+       C686 172, 698 235, 715 235
+       C732 235, 744 155, 760 155
+       C776 155, 788 210, 804 210
+       C820 210, 832 198, 848 198
+       C864 198, 874 246, 890 246
+       C906 246, 918 132, 936 132
+       C954 132, 966 280, 986 280
+       C1006 280, 1018 210, 1040 210
+       C1062 210, 1076 188, 1096 188
+       C1116 188, 1130 216, 1180 216"
+    fill="none"
+    stroke="#d9fbff"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#softGlow)"
+  />
+
+  <!-- Detection window markers -->
+  <g>
+    <rect x="338" y="82" width="122" height="256" rx="10" fill="#ef4444" fill-opacity="0.10" stroke="#ef4444" stroke-width="2"/>
+    <rect x="910" y="90" width="84" height="248" rx="10" fill="#22c55e" fill-opacity="0.08" stroke="#22c55e" stroke-width="2"/>
+    <text x="350" y="104" fill="#fecaca" font-size="18" font-family="Segoe UI, Arial, sans-serif">RED event window</text>
+  </g>
+
+  <!-- Title block -->
+  <g transform="translate(86 72)">
+    <text x="0" y="0" fill="#f8fbff" font-size="46" font-weight="700" font-family="Segoe UI, Arial, sans-serif">
+      TriboLexNet
+    </text>
+    <text x="0" y="38" fill="#b9dff0" font-size="20" font-family="Segoe UI, Arial, sans-serif">
+      RED keyword detection from triboelectric acoustic recordings
+    </text>
+    <text x="0" y="66" fill="#9bd8b2" font-size="16" font-family="Consolas, Menlo, monospace">
+      Random Forest pipeline • ZIP-based dataset loader • publication-ready plots
+    </text>
+  </g>
+</svg>

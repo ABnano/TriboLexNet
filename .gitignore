@@ -9,3 +9,14 @@ venv/
 
 # IDE workspace
 *.code-workspace
+
+# Generated outputs (do not version)
+outputs/
+plots/
+plots_*/
+results_*/
+composite_figure*
+
+# Python tooling caches
+.pytest_cache/
+.mypy_cache/
