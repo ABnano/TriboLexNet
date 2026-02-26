@@ -1,55 +1,66 @@
-# TriboLexNet
+﻿# TriboLexNet
 
 ![TriboLexNet acoustic banner](assets/tribolexnet_acoustic_banner.svg)
 
-Minimal, publication-oriented repository for **RED keyword detection** from **triboelectric/piezoelectric acoustic recordings** using a **classical machine learning (Random Forest)** pipeline.
+Publication-oriented repository for acoustic keyword and color-signal experiments on triboelectric/piezoelectric recordings. It includes a cleaned RED keyword Random Forest pipeline, an RGB ROC analysis script, and an ML learning-curve script.
 
-This repository is intentionally scoped to one reproducible workflow:
+This repository is intentionally kept compact and reproducible:
 
-- one runnable entry script: `red_detect_rf_publi_rgb_pre.py`
-- a small internal package for cleaner code organization
-- only the **datasets required by this RED-only pipeline**
+- a primary RED keyword spotting workflow (`red_detect_rf_publi_rgb_pre.py`)
+- a small internal package for cleaner code organization (`tribolexnet_red_rf/`)
+- two additional analysis scripts restored from your earlier working directory:
+  - `red_keyword_detection_mlplots.py` (learning curves / AUC curves)
+  - `roc_colors_ml.py` (BLUE/RED/GREEN ROC experiments)
+- only the datasets required by these scripts (no unrelated color ZIPs)
 - no pre-generated plots, results, checkpoints, or experiment clutter
 
-## Why only RED data is included
+## Included Data Scope
 
-This repository currently targets a **RED keyword spotting** pipeline, not multi-class color classification.
+The main pipeline is RED-only, but the additional ROC script (`roc_colors_ml.py`) needs BLUE, RED, and GREEN single-word recordings.
 
-The code in `red_detect_rf_publi_rgb_pre.py` (and the refactored package) only loads:
+Included ZIPs in `data/` cover all currently tracked scripts:
 
 - `Red_story_231125.zip`
 - `not_RED_speaking.zip`
 - `5 times Red.zip`
 - `Red 100x 10Hz.zip`
 - `Red 100x 13Hz.zip`
+- `blue 100x 10Hz.zip`
+- `Green 100x 13Hz.zip`
 
-The GREEN / BLUE / ORANGE / YELLOW / INDIGO / VIOLET ZIP archives are **not referenced by this pipeline** and were intentionally removed to keep the repository compact and professional.
+Still intentionally excluded (not required by the current scripts):
+
+- ORANGE / YELLOW / INDIGO / VIOLET ZIP datasets
 
 ## Repository Structure
 
 ```text
 .
-├── assets/
-│   └── tribolexnet_acoustic_banner.svg
-├── data/
-│   ├── 5 times Red.zip
-│   ├── Red 100x 10Hz.zip
-│   ├── Red 100x 13Hz.zip
-│   ├── Red_story_231125.zip
-│   └── not_RED_speaking.zip
-├── tribolexnet_red_rf/
-│   ├── __init__.py
-│   ├── cli.py
-│   ├── core.py
-│   └── plotting.py
-├── red_detect_rf_publi_rgb_pre.py
-├── .gitignore
-└── README.md
+|- assets/
+|  `- tribolexnet_acoustic_banner.svg
+|- data/
+|  |- 5 times Red.zip
+|  |- Red 100x 10Hz.zip
+|  |- Red 100x 13Hz.zip
+|  |- Red_story_231125.zip
+|  |- not_RED_speaking.zip
+|  |- blue 100x 10Hz.zip
+|  `- Green 100x 13Hz.zip
+|- tribolexnet_red_rf/
+|  |- __init__.py
+|  |- cli.py
+|  |- core.py
+|  `- plotting.py
+|- red_detect_rf_publi_rgb_pre.py
+|- red_keyword_detection_mlplots.py
+|- roc_colors_ml.py
+|- .gitignore
+`- README.md
 ```
 
 ## Refactor Summary (professionalized layout)
 
-The original monolithic script was reorganized into a small package:
+The original monolithic RED RF script was reorganized into a small package:
 
 - `tribolexnet_red_rf/core.py`
   - ZIP loading
@@ -68,7 +79,34 @@ The original monolithic script was reorganized into a small package:
 
 This keeps the public command unchanged while making the codebase easier to maintain.
 
-## Pipeline Overview
+## Included Scripts
+
+### 1) RED keyword Random Forest pipeline (main)
+
+- Entry point: `red_detect_rf_publi_rgb_pre.py`
+- Refactored implementation: `tribolexnet_red_rf/`
+- Purpose: RED keyword spotting with handcrafted features + Random Forest + publication-ready plots
+
+### 2) ML learning curves / AUC curves (RED vs not-RED)
+
+- Script: `red_keyword_detection_mlplots.py`
+- Purpose: train/validation loss and AUC curves across learning-rate sweeps (SGDClassifier, no neural nets)
+- Default inputs:
+  - `data/Red_story_231125.zip`
+  - `data/not_RED_speaking.zip`
+
+### 3) RGB ROC experiments (BLUE / RED / GREEN vs negative)
+
+- Script: `roc_colors_ml.py`
+- Purpose: generate ROC curves and AUC tables for BLUE/RED/GREEN one-vs-negative experiments
+- Default inputs:
+  - `data/blue 100x 10Hz.zip`
+  - `data/Red 100x 10Hz.zip`
+  - `data/Green 100x 13Hz.zip`
+  - `data/not_RED_speaking.zip`
+- Note: this script uses PyTorch
+
+## Pipeline Overview (main RED RF workflow)
 
 The RED RF pipeline performs:
 
@@ -85,15 +123,21 @@ The RED RF pipeline performs:
 
 Python 3.10+ is recommended.
 
-Install dependencies:
+Install core dependencies:
 
 ```bash
 pip install numpy pandas scikit-learn matplotlib
 ```
 
+Optional dependency for `roc_colors_ml.py`:
+
+```bash
+pip install torch
+```
+
 ## Usage
 
-Run the full pipeline with default paths (`data/` -> `outputs/`):
+Run the main RED RF pipeline with default paths (`data/` -> `outputs/`):
 
 ```bash
 python red_detect_rf_publi_rgb_pre.py
@@ -117,9 +161,23 @@ Adjust publication plotting settings:
 python red_detect_rf_publi_rgb_pre.py --dpi 600 --font_base 18 --topk 5
 ```
 
+### Additional Script Examples
+
+Learning curves / LR sweep:
+
+```bash
+python red_keyword_detection_mlplots.py
+```
+
+RGB ROC experiments:
+
+```bash
+python roc_colors_ml.py
+```
+
 ## Expected Inputs
 
-The script expects the ZIP files to contain CSV recordings with:
+All tracked scripts expect ZIP-contained CSV recordings with:
 
 - `;` as separator
 - `,` as decimal separator
@@ -128,12 +186,13 @@ The script expects the ZIP files to contain CSV recordings with:
 
 ## Outputs (generated locally, not tracked)
 
-By default, outputs are written to:
+By default, outputs are written under `outputs/` (for the scripts patched in this repo), such as:
 
 - `outputs/plots/`
 - `outputs/plots/examples/`
+- `outputs/results_mlplots/`
+- `outputs/results_roc_nn/`
 - `outputs/red_rf_summary_2x2.{png,pdf,svg}`
-- `outputs/red_rf_summary_2x2_notitle.{png,pdf,svg}`
 
 These are excluded via `.gitignore` to keep the repository clean.
 
@@ -141,10 +200,15 @@ These are excluded via `.gitignore` to keep the repository clean.
 
 - Segment-level train/validation split uses fixed `random_state`
 - Random Forest uses a fixed `random_state`
-- The pipeline is deterministic except for external library version differences
+- Other scripts also set explicit seeds where applicable
+- Exact results may vary slightly across library versions / hardware
 
-## Scope and Next Steps
+## Scope
 
-This repository is intentionally focused on a single RED keyword detection workflow.
+The repository now contains a curated subset of your original work:
 
-If you later want a broader **multi-color acoustic command classification** repository (RED/GREEN/BLUE/etc.), create a separate pipeline and re-introduce those datasets with a distinct README and experiment structure.
+- RED RF detection pipeline (cleaned and modularized)
+- RED learning-curve analysis script
+- RGB ROC analysis script
+
+It intentionally excludes unrelated scripts, checkpoints, and generated results to stay maintainable and presentation-ready.
