@@ -36,13 +36,13 @@ Included ZIPs in `data/`:
 |  |- core.py
 |  `- plotting.py
 |- red_detect_rf_publi_rgb_pre.py
-|- red_keyword_detection_mlplots.py
-|- roc_colors_ml.py
+|- red_keyword_detection_nlr.py
+|- roc_rgb_ml.py
 |- .gitignore
 `- README.md
 ```
 
-## Refactor Summary (professionalized layout)
+## Refactor Summary
 
 The original monolithic RED RF script was reorganized into a small package:
 
@@ -63,23 +63,23 @@ The original monolithic RED RF script was reorganized into a small package:
 
 ## Included Scripts
 
-### 1) RED keyword Random Forest pipeline (main)
+### 1) RED keyword Random Forest pipeline
 
 - Entry point: `red_detect_rf_publi_rgb_pre.py`
 - Refactored implementation: `tribolexnet_red_rf/`
 - Purpose: RED keyword spotting with handcrafted features with Random Forest
 
-### 2) ML learning curves / AUC curves (RED vs not-RED)
+### 2) ML learning curves / AUC curves 
 
-- Script: `red_keyword_detection_mlplots.py`
+- Script: `red_keyword_detection_nlr.py`
 - Purpose: train/validation loss and AUC curves across learning-rate sweeps
 - Default inputs:
   - `data/Red_story_231125.zip`
   - `data/not_RED_speaking.zip`
 
-### 3) RGB ROC experiments (BLUE / RED / GREEN vs negative)
+### 3) RGB ROC experiments 
 
-- Script: `roc_colors_ml.py`
+- Script: `roc_rgb_ml.py`
 - Purpose: generate ROC curves and AUC tables for BLUE/RED/GREEN one-vs-negative experiments
 - Default inputs:
   - `data/blue 100x 10Hz.zip`
@@ -109,7 +109,7 @@ Install core dependencies:
 pip install numpy pandas scikit-learn matplotlib
 ```
 
-Optional dependency for `roc_colors_ml.py`:
+Optional dependency for `roc_rgb_ml.py`:
 
 ```bash
 pip install torch
