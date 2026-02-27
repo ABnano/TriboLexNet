@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-red_keyword_detection_mlplots.py
+red_keyword_detection_nlr.py
 
 Fast ML (no neural nets) training curves for detecting the word "RED" in
 piezoelectric acoustic recordings.
